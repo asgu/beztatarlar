@@ -1,0 +1,9 @@
+---
+ppa: "ppa:ondrej/nginx"
+
+webroot_framework: ""
+
+packages:
+  - nginx
+  - nginx-common
+  - nginx-extras

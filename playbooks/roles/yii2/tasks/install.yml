@@ -1,0 +1,42 @@
+---
+- name: Install vendor
+  shell: "composer install --no-plugins"
+  args:
+    chdir: "{{ document_root }}/app/"
+  register: composerout
+  tags:
+    - vagrant
+
+- name: Print composer install result
+  debug: var=composerout.stderr_lines
+  tags:
+    - vagrant
+
+- name: Init config files and index.php
+  shell: "composer run-script post-install-cmd"
+  args:
+    chdir: "{{ document_root }}/app/"
+  register: copyout
+  tags:
+    - vagrant
+
+- name: Print Init config files and index.php
+  debug: var=copyout.stderr_lines
+  tags:
+    - vagrant
+    
+- name: Install cron for Yii
+  template:
+    src: cron.j2
+    dest: /var/spool/cron/crontabs/root
+    group: root
+    owner: root
+    mode: 0600
+  tags:
+    - vagrant
+
+- name: Restart cron for reread crontab
+  service:
+    name: cron
+    state: restarted
+    enabled: yes

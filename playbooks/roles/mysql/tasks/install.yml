@@ -1,0 +1,60 @@
+---
+- name: Check mysql-apt-config version for download
+  set_fact:
+    mysql_apt_config_package_url: "https://dev.mysql.com/get/{{ lookup('url', 'https://dev.mysql.com/downloads/repo/apt/') | regex_search('mysql-apt-config.+\\.deb(?=\\))') }}"
+  changed_when: false
+
+- name: Set config Mysql Repository
+  debconf:
+    name: mysql-apt-config
+    question: "mysql-apt-config/{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype | default ('select') }}"
+  with_items:
+    - question: repo-codename
+      value: "{{ ansible_distribution_release }}"
+    - question: repo-distro
+      value: "{{ ansible_distribution | lower }}"
+    - question: select-server
+      value: "mysql-{{ mysql_version }}"
+    - question: select-tools
+      value: 'Enabled'
+      vtype: select
+  changed_when: false
+
+- name: Add Mysql Repository
+  apt:
+    deb: "{{ mysql_apt_config_package_url | default ('https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb') }}"
+  changed_when: false
+
+- name: Install mysql {{ mysql_version }}
+  apt:
+    pkg: "{{ packages }}"
+    state: present
+    update_cache: true
+  changed_when: false
+
+- name: Copy MySQL configuration
+  template:
+    src: "mysqld.cnf.j2"
+    dest: "/etc/mysql/mysql.conf.d/mysqld.cnf"
+    owner: "root"
+    group: "root"
+  changed_when: false
+
+- name: Update MySQL root password for all root accounts
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: root
+    host: "{{ item }}"
+    password: "{{ mysql_root_pass }}"
+    login_user: root
+    login_password: "{{ mysql_root_pass }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  tags:
+    - vagrant

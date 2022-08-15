@@ -1,0 +1,12 @@
+---
+- name: Create MySQL users
+  mysql_user:
+    login_user: "root"
+    login_password: "{{ mysql_root_pass }}"
+    name: "{{ item.name }}"
+    host: '%'
+    check_implicit_admin: no
+    password: "{{ item.password }}"
+    priv: "{{ item.priv | default('*.*:ALL,GRANT') }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ mysql_users }}"

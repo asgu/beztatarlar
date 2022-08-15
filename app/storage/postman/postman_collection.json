@@ -1,0 +1,1500 @@
+{
+    "info": {
+        "_postman_id": "7da7185a-7d9a-4d70-af21-dd315dc81b03",
+        "name": "Api Huzursite",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Language",
+            "item": [
+                {
+                    "name": "app langs",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/language/app-languages-list",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "language",
+                                "app-languages-list"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "app langs messages",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/language/app-languages-messages/RU",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "language",
+                                "app-languages-messages",
+                                "RU"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Teachers",
+            "items": [
+                {
+                    "name": "Teachers list",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/teachers",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "teachers"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Auth",
+            "items": [
+                {
+                    "name": "Social media",
+                    "items": [
+                        {
+                            "name": "List",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/auth/social",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "social"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Login",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "var data = JSON.parse(responseBody);",
+                                            "pm.collectionVariables.set(\"accessToken\", data.data.accessToken);"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "code",
+                                            "value": "4%2F0AY0e-g61JLstLfhoIun-5YQ-g5JER7Tmnkv-zbTHx05svlhuBFD14YQrFWa9--uQNaVo8A",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "deviceType",
+                                            "value": "web",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "deviceId",
+                                            "value": "web_id",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/auth/social/:provider/login",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "auth",
+                                        "social",
+                                        ":provider",
+                                        "login"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Validate user registration info",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "user@mail.ru",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "repeatPassword",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "agreement",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/auth/pre-validate",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "pre-validate"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Registration",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var data = JSON.parse(responseBody);",
+                                    "pm.collectionVariables.set(\"accessToken\", data.data.accessToken);"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "user@mail.ru",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "repeatPassword",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "agreement",
+                                    "value": "1",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[fullName]",
+                                    "value": "Иванов Иван Иванович",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[gender]",
+                                    "value": "male",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[birthday]",
+                                    "value": "22.12.1980",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "positionId",
+                                    "value": "",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "mukhtasibatId",
+                                    "value": "",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "parishId",
+                                    "value": "",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "deviceId",
+                                    "value": "web_id",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "deviceType",
+                                    "value": "web",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/auth/registration",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "registration"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Send registration email",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/auth/send-registration-email",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "send-registration-email"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Confirm email",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "hash",
+                                    "value": "",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/auth/confirm-email",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "confirm-email"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var data = JSON.parse(responseBody);",
+                                    "pm.collectionVariables.set(\"accessToken\", data.data.accessToken);"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "admin@admin.ru",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "deviceType",
+                                    "value": "web",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "deviceId",
+                                    "value": "web_id",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/auth/login",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Logout",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/auth/logout",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "logout"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "User",
+            "items": [
+                {
+                    "name": "Profile",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/user/profile",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "user",
+                                "profile"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "profile[name]",
+                                    "value": "Иван",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[surname]",
+                                    "value": "Иванов",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[patronymic]",
+                                    "value": "Иванович",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[phone]",
+                                    "value": "79270807579",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[photo]",
+                                    "type": "file"
+                                },
+                                {
+                                    "key": "profile[gender]",
+                                    "value": "male",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "profile[birthday]",
+                                    "value": "22.12.1980",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "positionId",
+                                    "value": "1",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "mukhtasibatId",
+                                    "value": "1",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "parishId",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/user/update",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "user",
+                                "update"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Change email",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"new email\",\n    \"password\": \"pass\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/user/change-email",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "user",
+                                "change-email"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Confirm change email",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "hash",
+                                    "value": "",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/user/confirm-change-email",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "user",
+                                "confirm-change-email"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Change password",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "content-language",
+                                "value": "ru",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"currentPassword\": \"123456\",\n    \"newPassword\": \"1234567\",\n    \"repeatNewPassword\": \"1234567\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/user/change-password",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "user",
+                                "change-password"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Reset password",
+            "items": [
+                {
+                    "name": "Send token",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "admin@admin.ru",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/password/send-token",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "password",
+                                "send-token"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Reset",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "password",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "repeatPassword",
+                                    "value": "123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "resetToken",
+                                    "value": "token from email",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "deviceType",
+                                    "value": "web",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "deviceId",
+                                    "value": "web_id",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/password/reset",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "password",
+                                "reset"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Lesson",
+            "items": [
+                {
+                    "name": "List",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/lesson/list",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "lesson",
+                                "list"
+                            ],
+                            "query": [
+                                {
+                                    "key": "offset",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "50"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Progress",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/lesson/progress",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "lesson",
+                                "progress"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Topics",
+                    "items": [
+                        {
+                            "name": "Topic",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "type": "text",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{accessToken}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/lesson/topic/{topicId}",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "lesson",
+                                        "topic",
+                                        "{topicId}"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Set topic as passed",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "type": "text",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{accessToken}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/lesson/topic/pass/{topicId}",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "lesson",
+                                        "topic",
+                                        "pass",
+                                        "{topicId}"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Tests",
+                    "items": [
+                        {
+                            "name": "Is test open",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "type": "text",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{accessToken}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/lesson/test/is-open/{testId}",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "lesson",
+                                        "test",
+                                        "is-open",
+                                        "{testId}"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Test",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "type": "text",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{accessToken}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": ""
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/lesson/test/{testId}",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "lesson",
+                                        "test",
+                                        "{testId}"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Check test",
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            },
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "type": "text",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{accessToken}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"questions\": [\n        {\"questionId\": \"\", \"answerId\" : \"\"},\n        {\"questionId\": \"\", \"answerId\" : \"\"}\n    ]\n}"
+                                },
+                                "url": {
+                                    "raw": "{{baseApi}}/lesson/test/check/{testId}",
+                                    "host": [
+                                        "{{baseApi}}"
+                                    ],
+                                    "path": [
+                                        "lesson",
+                                        "test",
+                                        "check",
+                                        "{testId}"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Positions",
+            "items": [
+                {
+                    "name": "Positions",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/positions/list",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "positions",
+                                "list"
+                            ],
+                            "query": [
+                                {
+                                    "key": "offset",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "50"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Mukhtasibats",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/mukhtasibats/list",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "mukhtasibats",
+                                "list"
+                            ],
+                            "query": [
+                                {
+                                    "key": "offset",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "50"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Parishes",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{baseApi}}/parishes/list",
+                            "host": [
+                                "{{baseApi}}"
+                            ],
+                            "path": [
+                                "parishes",
+                                "list"
+                            ],
+                            "query": [
+                                {
+                                    "key": "offset",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "50"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "pm.request.headers.add({key: 'app-version', value: '1.0'})",
+                    "pm.request.headers.add({key: 'app-platform', value: 'android'})"
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseApi",
+            "value": "http://huzursite.local/api"
+        },
+        {
+            "key": "token",
+            "value": "65DMmBQEjTTjcMW4sFFXQW9oLeaAcqsVy4GyPx9zCmiN45zNf5ivDneVi65RvaoH"
+        },
+        {
+            "key": "accessToken",
+            "value": ""
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+[Unit]
+Description=Mailcatcher service
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/local/bin/mailcatcher -v -f --ip={{ mailcatcher_ip }} --smtp-ip={{ mailcatcher_smtp_ip }} --smtp-port={{ mailcatcher_smtp_port }} --http-ip={{ mailcatcher_http_ip }} --http-port={{ mailcatcher_http_port }} >> /var/log/mailcatcher.log 2>&1
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -9 $MAINPID
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,7 @@
+---
+- name: Install Redis-server
+  apt:
+    pkg: "{{ packages }}"
+    state: present
+    update_cache: true
+  changed_when: false

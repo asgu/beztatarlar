@@ -1,0 +1,47 @@
+---
+- name: Install vendor
+  shell: "composer install --no-plugins"
+  args:
+    chdir: "{{ document_root }}/app"
+  register: composerout
+  tags:
+    - vagrant
+
+- name: Laravel create .env file
+  shell: "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+  args:
+    chdir: "{{ document_root }}/app"
+  register: composerout
+  tags:
+    - vagrant
+
+- name: Laravel key generate
+  shell: "php artisan key:generate"
+  args:
+    chdir: "{{ document_root }}/app/"
+  register: composerout
+  tags:
+    - vagrant
+
+- name: Print composer install result
+  debug: var=composerout.stderr_lines
+  tags:
+    - vagrant
+
+- name: Install cron
+  template:
+    src: cron.j2
+    dest: /var/spool/cron/crontabs/root
+    group: root
+    owner: root
+    mode: 0600
+  tags:
+    - vagrant
+
+- name: Restart cron for reread crontab
+  service:
+    name: cron
+    state: restarted
+    enabled: yes
+  tags:
+    - vagrant

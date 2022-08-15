@@ -1,0 +1,13 @@
+---
+- name: Laravel migrate
+  shell: "php artisan migrate"
+  args:
+    chdir: "{{ document_root }}/app"
+  register: migrateout
+  tags:
+    - vagrant
+
+- name: Print Laravel migration result
+  debug: var=migrateout.stdout_lines
+  tags:
+    - vagrant

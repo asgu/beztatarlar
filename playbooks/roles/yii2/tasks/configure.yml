@@ -1,0 +1,26 @@
+---
+- name: Yii migrate
+  shell: "php yii migrate --interactive=0"
+  args:
+    chdir: "{{ document_root }}/app"
+  register: migrateout
+  tags:
+    - vagrant
+
+- name: Print yii migration result
+  debug: var=migrateout.stdout_lines
+  tags:
+    - vagrant
+
+- name: Yii generate models
+  shell: "php yii generator/models"
+  args:
+    chdir: "{{ document_root }}/app"
+  register: generatorout
+  tags:
+    - vagrant
+
+- name: Print yii generator models result
+  debug: var=generatorout.stdout_lines
+  tags:
+    - vagrant

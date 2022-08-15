@@ -1,0 +1,10 @@
+---
+- name: Create MySQL databases
+  mysql_db:
+    login_user: "root"
+    login_password: "{{ mysql_root_pass }}"
+    name: "{{ item.name }}"
+    collation: "{{ item.collation | default('utf8mb4_unicode_ci') }}"
+    encoding: "{{ item.encoding | default('utf8mb4') }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ mysql_databases }}"

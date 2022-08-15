@@ -1,0 +1,8 @@
+# we assume mailcatcher running
+server {
+	listen 80;
+	server_name mail.{{ domain_name }};
+	location / {
+		proxy_pass       http://localhost:1080;
+	}
+}

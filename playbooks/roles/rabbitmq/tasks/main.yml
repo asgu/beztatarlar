@@ -1,0 +1,7 @@
+---
+- name: Install RabbitMQ
+  include_tasks: install.yml
+
+- name: Configure RabbitMQ
+  include_tasks: configure.yml
+

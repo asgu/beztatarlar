@@ -1,0 +1,91 @@
+---
+- name: Check Laravel
+  stat:
+    path: "{{ document_root }}/app/artisan"
+  register: laravel_installed
+
+- name: Set webroot for Laravel
+  set_fact:
+    webroot_framework: "app/public"
+  when: laravel_installed.stat.exists
+
+- name: Check Yii
+  stat:
+    path: "{{ document_root }}/app/yii"
+  register: yii_installed
+
+- name: Set webroot for Yii
+  set_fact:
+    webroot_framework: "app/web"
+  when: yii_installed.stat.exists
+
+- name: Check symfony
+  stat:
+    path: "{{ document_root }}/app/bin/console"
+  register: symfony_installed
+
+- name: Set webroot for Symfony
+  set_fact:
+    webroot_framework: "app/public"
+  when: symfony_installed.stat.exists
+
+- name: Create main default config nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: Create directory for certificate files
+  file:
+    path: /etc/nginx/ssl
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Create root certificate pem file
+  file:
+    path: /etc/nginx/ssl/ca-certs.pem
+    owner: root
+    group: root
+    mode: 0640
+    state: touch
+  changed_when: false
+
+- name: Clear default host file
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
+
+- name: Clear default host file link
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Create host file from template mailcatcher
+  template:
+    src: mailcatcher.conf.j2
+    dest: /etc/nginx/sites-available/mailcatcher.conf
+
+- name: Create host file from template empty simple app
+  template:
+    src: default.conf.j2
+    dest: "/etc/nginx/sites-available/{{ simple_domain }}.conf"
+
+- name: Create link for enabled sites mailcatcher
+  file:
+    src: "/etc/nginx/sites-available/mailcatcher.conf"
+    dest: "/etc/nginx/sites-enabled/mailcatcher.conf"
+    state: link
+
+- name: Create link for enabled sites simple app
+  file:
+    src: "/etc/nginx/sites-available/{{ simple_domain }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ simple_domain }}.conf"
+    state: link
+
+- name: Apply settings
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
+

@@ -1,0 +1,7 @@
+---
+- name: Install RabbitMQ
+  apt:
+    pkg: "{{ packagesrmq }}"
+    state: present
+    update_cache: true
+  changed_when: false

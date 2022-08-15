@@ -1,0 +1,10 @@
+---
+packages:
+  - python3-pymysql
+  - python3-mysqldb
+  - mysql-community-server
+  - mysql-community-client
+  - python3-pymysql
+  - python-apt
+  - python3-apt
+

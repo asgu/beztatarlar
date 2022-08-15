@@ -1,0 +1,4 @@
+[submodule "playbooks/roles"]
+	path = playbooks/roles
+	url = ../../internal/roles.git
+	branch = prod

@@ -1,0 +1,7 @@
+---
+- name: Install Supervisor
+  apt:
+    pkg: "{{ packagessv }}"
+    state: present
+    update_cache: true
+  changed_when: false

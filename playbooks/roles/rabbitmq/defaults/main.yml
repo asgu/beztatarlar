@@ -1,0 +1,6 @@
+---
+packagesrmq:
+  - rabbitmq-server
+
+
+

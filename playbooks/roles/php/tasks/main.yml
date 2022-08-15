@@ -1,0 +1,6 @@
+---
+- name: Install PHP {{ php_version }}
+  include_tasks: install.yml
+
+- name: Configure PHP {{ php_version }}
+  include_tasks: configure.yml

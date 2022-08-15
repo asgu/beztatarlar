@@ -1,0 +1,49 @@
+# Your personal GitHub token
+github_token: 7a776adb5a87ed5aa630bb4c8d30c1faf6d35200
+# Read more: https://github.com/blog/1509-personal-api-tokens
+# You can generate it here: https://github.com/settings/tokens
+
+# Guest OS timezone
+timezone: UTC
+
+# Are we need check box updates for every 'vagrant up'?
+box_check_update: false
+
+# Virtual machine name
+machine_name: huzursite.backend
+
+# Domain for project
+simple_domain: huzursite.local
+
+# PHP default version
+php_default_version: 8.0
+
+# Mysql default version
+mysql_default_version: 8.0
+
+# Mysql default pass
+mysql_default_pass: mypass
+
+# Mysql db name for project
+project_db_name: huzursitedb
+
+# Mysql user name for project
+project_user_name: user
+
+# Mysql password for project
+project_password: user
+
+# Virtual machine IP
+ip: 192.168.56.239
+
+# Virtual machine CPU cores number
+cpus: 4
+
+# Virtual machine RAM
+memory: 2048
+
+# Box
+box: ubuntu/bionic64
+
+# VirtualBox disk size
+disksize: 20GB

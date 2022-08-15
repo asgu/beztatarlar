@@ -1,0 +1,11 @@
+
+# Databases
+mysql_databases:
+  - name: "{{ project_db_name | default ('db') }}"
+    collation: utf8mb4_unicode_ci
+    encoding: utf8mb4
+
+# Users
+mysql_users:
+  - name: "{{ project_user_name | default ('user') }}"
+    password: "{{ project_password | default ('password') }}"

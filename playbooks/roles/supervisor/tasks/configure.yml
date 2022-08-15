@@ -1,0 +1,24 @@
+---
+- name: Config Supervisor Override
+  template:
+    src: supervisord.conf.j2
+    dest: /etc/supervisor/supervisord.conf
+
+- name: Get supervisor config files
+  find:
+    path: "supervisor/"
+    file_type: file
+    patterns: '*.conf'
+  register: findresult
+
+- name: Copy supervisor config files to /etc
+  template:
+    src: "{{ item.path }}"
+    dest: "/etc/supervisor/conf.d/{{ item.path | basename }}"
+  with_items: "{{ findresult.files }}"
+
+- name: Apply settings
+  service:
+    name: supervisor
+    state: restarted
+    enabled: yes

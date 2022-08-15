@@ -1,0 +1,6 @@
+---
+- name: Preinstall Yii
+  include_tasks: install.yml
+
+- name: Configure Yii
+  include_tasks: configure.yml

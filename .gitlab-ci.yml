@@ -1,0 +1,62 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+stages:
+  - deploy-netimob-dev
+  - deploy-to-medrese-prod
+deploy-to-netimob:
+  stage: deploy-netimob-dev
+  environment:
+    name: dev
+  only:
+    - dev
+  script:
+    - umask 0002
+    - sudo chown -R 999:33 /var/www/huzursite-api
+    - sudo ansible-playbook --connection=local --inventory all, playbooks/vagrant.yml --skip-tags=vagrant --extra-vars "docroot=/var/www/huzursite-api
+      php_default_version=8.0
+      mysql_default_version=8.0"
+    - rsync -az . /var/www/huzursite-api
+    - cp -f $env /var/www/huzursite-api/app/.env
+    - sudo chown -R gitlab-runner:www-data /var/www/huzursite-api
+    - cd /var/www/huzursite-api/app; composer install
+    - cd /var/www/huzursite-api/app; composer dumpautoload
+    - cd /var/www/huzursite-api/app; cat ./.env | grep 'KEY'
+    - cd /var/www/huzursite-api/app; php artisan config:clear -n
+    - cd /var/www/huzursite-api/app; php artisan config:cache -n
+    - cd /var/www/huzursite-api/app; php artisan route:cache -n
+    - cd /var/www/huzursite-api/app; php artisan migrate --force -n -vvv
+    - cd /var/www/huzursite-api/app; php artisan storage:link
+    - cd /var/www/huzursite-api/app; php artisan db:seed --class="Modules\Language\Database\Seeders\AppLanguagesSeeder"
+    - cd /var/www/huzursite-api/app; php artisan db:seed --class="Modules\Language\Database\Seeders\AppLanguageMessagesSeeder"
+    - cd /var/www/huzursite-api/app; php artisan db:seed --class="Modules\Language\Database\Seeders\BackRuSeeder"
+    - cd /var/www/huzursite-api/app; php artisan db:seed --class="Modules\Admin\Database\Seeders\CreateAdminSeeder"
+    - sudo chown -R www-data:gitlab-runner /var/www/huzursite-api
+deploy-to-medrese-prod:
+  stage: deploy-to-medrese-prod
+  environment:
+    name: prod
+  tags:
+    - medrese-prod
+  only:
+    - release
+  when: manual
+  script:
+    - umask 0002
+    - sudo chown -R 999:33 /www/beztatarlar.ru/web/backend/
+    - rsync -az . /www/beztatarlar.ru/web/backend/
+    - cp -f $env /www/beztatarlar.ru/web/backend/app/.env
+    - sudo chown -R gitlab-runner:www-data /www/beztatarlar.ru/web/backend/
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 /usr/bin/composer2 install
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 /usr/bin/composer2 dumpautoload
+    - cd /www/beztatarlar.ru/web/backend/app; cat ./.env | grep 'KEY'
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan config:clear -n
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan config:cache -n
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan route:cache -n
+#    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan migrate:reset --force -n -vvv
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan migrate --force -n -vvv
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan storage:link
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan db:seed --class="Modules\Language\Database\Seeders\AppLanguagesSeeder"
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan db:seed --class="Modules\Language\Database\Seeders\AppLanguageMessagesSeeder"
+    - cd /www/beztatarlar.ru/web/backend/app; /usr/bin/php8.0 artisan db:seed --class="Modules\Language\Database\Seeders\BackRuSeeder"
+#    - cd /www/beztatarlar.ru/web/backend/app; php artisan db:seed --class="Modules\Admin\Database\Seeders\CreateAdminSeeder"
+    - sudo chown -R www-data:gitlab-runner /www/beztatarlar.ru/web/backend/

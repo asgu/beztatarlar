@@ -1,0 +1,31 @@
+---
+version: "{{ php_version | default ('7.4') }}"
+
+ppa: "ppa:ondrej/php"
+
+packages:
+  - php{{ php_version }}
+  - php{{ php_version }}-mbstring
+  - php{{ php_version }}-opcache
+  - php{{ php_version }}-imagick
+  - php{{ php_version }}-common
+  - php{{ php_version }}-mysql
+  - php{{ php_version }}-curl
+  - php{{ php_version }}-tidy
+#  - php{{ php_version }}-json include into php8 packge by default for php 8
+  - php{{ php_version }}-cli
+  - php{{ php_version }}-fpm
+  - php{{ php_version }}-zip
+  - php{{ php_version }}-xml
+  - php{{ php_version }}-gd
+  - php{{ php_version }}-pdo
+  - php{{ php_version }}-intl
+  - php{{ php_version }}-http
+  - php{{ php_version }}-raphf
+#  - php{{ php_version }}-propro - Depricated in php 8
+  - php{{ php_version }}-amqp
+  - php-memcached
+  - php-imagick
+  - php-xdebug
+  - php-pear
+  - php-yaml

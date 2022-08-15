@@ -1,0 +1,14 @@
+---
+- name: PPA setup Nginx
+  apt_repository:
+    validate_certs: no
+    repo: "{{ ppa }}"
+    state: present
+  changed_when: false
+
+- name: Install Nginx
+  apt:
+    pkg: "{{ packages }}"
+    state: present
+    update_cache: true
+  changed_when: false
